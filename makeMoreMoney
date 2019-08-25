@@ -1,0 +1,88 @@
+package dayCodeing;
+
+import java.io.IOException;
+import java.util.Scanner;
+
+//桌子上放了红包  1, 2, 3, 4, 7, 10。
+//小明在“4,7”之间、“7,10” 之间各切一刀，
+//将红包分成3组 [1, 2, 3, 4]   [7]   [10]，
+//其中第一组奖金之和=第三组奖金之和=10，所以小明可以拿到10越南盾。
+//贪心
+public class MakemoreMoney {
+
+	public static void main(String[] args) throws IOException{
+		// TODO 自动生成的方法存根
+		 Scanner in=new Scanner(System.in);
+	        int num=in.nextInt();  
+	        Scanner ins=new Scanner(System.in);
+	        String nums[]=ins.nextLine().split(" ");
+	        int sums[]=new int[num];
+	        for(int i=0;i<nums.length;i++)
+	        {
+	        	sums[i]=Integer.parseInt(nums[i]); 
+	        	   	
+	        }
+	          int left=0,right=num-1;
+	      
+	        long maxSum=0,leftSum=sums[left];
+	        long rightSum=sums[right];
+	         while(left<right)
+	        {
+	            if(leftSum==rightSum){
+	                maxSum=leftSum;
+	                leftSum+=sums[++left];
+	                rightSum+=sums[--right];  
+	             
+             }else if(leftSum>rightSum)
+	                  rightSum+=sums[--right];
+                else  
+                	leftSum+=sums[++left];
+	         
+           }
+	        System.out.print(maxSum);
+	}
+
+}
+//review
+//****first****
+//what i suffered is that scanner.next is only reads one character rather than one line.
+//and i need two scanner to input two lines of information
+//****second****
+//the sum is used to overvise if the number's type is int
+//should change to long or double
+//is better to use the solution below.....
+//import java.util.Scanner;
+//import java.io.BufferedReader;
+//import java.io.IOException;
+//import java.io.InputStreamReader;
+//public class Main{
+//    public static void main(String[] args) throws IOException{
+//      BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
+//	        int num=Integer.parseInt(in.readLine());   
+//	        String nums[]=in.readLine().split(" ");
+//	        int sums[]=new int[num];
+//	        for(int i=0;i<num;i++)
+//	        {
+//	        	sums[i]=Integer.parseInt(nums[i]); 
+//	        	   	
+//	        }
+//	          int left=0,right=num-1;
+//	      
+//	        long maxSum=0,leftSum=sums[left];
+//	        long rightSum=sums[right];
+//	         while(left<right)
+//	        {
+//	            if(leftSum==rightSum){
+//	                maxSum=leftSum;
+//	                leftSum+=sums[++left];
+//	                rightSum+=sums[--right];  
+//	             
+//             }else if(leftSum>rightSum)
+//	                  rightSum+=sums[--right];
+//                else  
+//                	leftSum+=sums[++left];
+//	         
+//           }
+//	        System.out.print(maxSum);
+//    } 
+//}
